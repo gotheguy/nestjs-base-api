@@ -14,27 +14,29 @@ export class ProductsController {
 
   @Get()
   @Header('Content-Type','application/json')
-  getAllProducts(): any {
-    return this.productsService.getAllProducts();
+  async getAllProducts() {
+    const products = await this.productsService.getAllProducts();
+    return products;
   }
 
   @Get(":id")
   @Header('Content-Type','application/json')
-  getProduct(@Param('id') prodId: string): any {
-    return this.productsService.getProduct(prodId);
+  async getProduct(@Param('id') prodId: string) {
+    const product = await this.productsService.getProduct(prodId);
+    return product;
   }
 
   @Patch(":id")
   @Header('Content-Type','application/json')
-  updateProduct(@Param('id') prodId: string, @Body('title') prodTitle: string, @Body('description') prodDescription: string, @Body('price') prodPrice: number): any {
-    this.productsService.updateProduct(prodId, prodTitle, prodDescription, prodPrice);
+  async updateProduct(@Param('id') prodId: string, @Body('title') prodTitle: string, @Body('description') prodDescription: string, @Body('price') prodPrice: number) {
+    await this.productsService.updateProduct(prodId, prodTitle, prodDescription, prodPrice);
     return null;
   }
 
   @Delete(":id")
   @Header('Content-Type','application/json')
-  deleteProduct(@Param('id') prodId: string): any {
-    this.productsService.deleteProduct(prodId);
+  async deleteProduct(@Param('id') prodId: string) {
+    await this.productsService.deleteProduct(prodId);
     return null;
   }
 }
